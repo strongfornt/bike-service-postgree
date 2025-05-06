@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import cookieParser from 'cookie-parser';
+import router from "./app/router";
 
 const app: Application = express();
 
@@ -14,6 +15,10 @@ app.get("/", (req: Request, res: Response) => {
     Message: "Bike service..",
   });
 });
+
+
+//applications routes
+app.use('/api', router)
 
 
 export default app;
