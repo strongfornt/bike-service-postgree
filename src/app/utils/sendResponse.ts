@@ -16,7 +16,7 @@ const sendResponse = <T>(
     success: data?.success,
     message: data?.message,
     statusCode: data?.statusCode,
-    totalCount: data?.totalCount || null, 
+    totalCount: data?.totalCount, 
     data: data?.data,
   });
 };

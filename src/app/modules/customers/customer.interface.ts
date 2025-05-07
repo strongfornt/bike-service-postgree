@@ -3,3 +3,5 @@ export  interface ICustomer {
     email:string,
     phone: string
 }
+
+export type TCustomerUpdate = Partial<ICustomer>;

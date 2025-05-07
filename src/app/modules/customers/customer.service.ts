@@ -1,11 +1,49 @@
-import { ICustomer } from "./customer.interface"
+import { prisma } from "../../shared/prisma";
+import { ICustomer, TCustomerUpdate } from "./customer.interface";
 
-const createUserIntoDB =async (payload: ICustomer ) => {
-    
-} 
+const createCustomerIntoDB = async (payload: ICustomer) => {
+  console.log(payload);
+  const customer = await prisma.customer.create({
+    data: payload,
+  });
 
+  return customer;
+};
 
+const getAllCustomersIntoDB = async () => {
+  const customers = await prisma.customer.findMany();
+  return customers;
+};
+
+const getCustomerByIdIntoDB = async (customerId: string) => {
+  const customer = await prisma.customer.findUniqueOrThrow({
+    where: {
+      customerId,
+    },
+  });
+
+  return customer;
+};
+
+const updateCustomerById = async (customerId: string, payload:TCustomerUpdate) => {
+  await prisma.customer.findUniqueOrThrow({
+    where: {
+      customerId,
+    },
+  });
+  const updateCustomer = await prisma.customer.update({
+    where: {
+      customerId,
+    },
+    data:payload,
+  });
+
+  return updateCustomer;
+};
 
 export const customerServices = {
-    createUserIntoDB
-}
+  createCustomerIntoDB,
+  getAllCustomersIntoDB,
+  getCustomerByIdIntoDB,
+  updateCustomerById
+};
