@@ -5,6 +5,7 @@ import handleDuplicateError from '../errors/duplicate.error';
 import { CustomError } from '../errors/custome.error';
 import handleZodError from '../errors/handle.zod.error';
 import config from '../config';
+import handleNotFoundError from '../errors/handlePrismaNotFound.error';
 
 
 
@@ -26,14 +27,21 @@ const globalErrorHandler: ErrorRequestHandler = (err: any, req, res, next) => {
     statusCode = simpleFydError?.statusCode;
     message = simpleFydError?.message;
     error = simpleFydError?.error;
-    // console.log(simpleFydError);
   } else if (err?.code === 'P2002') {
     const simpleFydError = handleDuplicateError(err);
 
     statusCode = simpleFydError?.statusCode;
     message = simpleFydError?.message;
     error = simpleFydError?.error;
-  } else if (err instanceof CustomError) {
+  
+  } else if (err?.code === 'P2025') {
+    const simpleFydError = handleNotFoundError(err);
+
+    statusCode = simpleFydError?.statusCode;
+    message = simpleFydError?.message;
+    error = simpleFydError?.error;
+  }
+  else if (err instanceof CustomError) {
     statusCode = err?.statusCode;
     message = err?.message;
     error =[{

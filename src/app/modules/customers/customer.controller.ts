@@ -48,9 +48,20 @@ const updateCustomerById = catchAsync(async (req, res, next) => {
   });
 });
 
+const deleteCustomerById = catchAsync(async (req, res, next) => {
+  const { customerId } = req?.params;
+  await customerServices.deleteCustomerById(customerId);
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: "Customer deleted successfully",
+  });
+});
+
 export const customerController = {
   createCustomer,
   getAllCustomers,
   getCustomerById,
   updateCustomerById,
+  deleteCustomerById,
 };

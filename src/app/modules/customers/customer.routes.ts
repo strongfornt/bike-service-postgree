@@ -21,6 +21,9 @@ router
       customerZodValidation.updateCustomerZodValidationSchema
     ),
     customerController.updateCustomerById
-  );
+  )
+  .delete(customerController.deleteCustomerById);
+
+
 
 export const CustomerRoutes = router;

@@ -25,7 +25,10 @@ const getCustomerByIdIntoDB = async (customerId: string) => {
   return customer;
 };
 
-const updateCustomerById = async (customerId: string, payload:TCustomerUpdate) => {
+const updateCustomerById = async (
+  customerId: string,
+  payload: TCustomerUpdate
+) => {
   await prisma.customer.findUniqueOrThrow({
     where: {
       customerId,
@@ -35,15 +38,31 @@ const updateCustomerById = async (customerId: string, payload:TCustomerUpdate) =
     where: {
       customerId,
     },
-    data:payload,
+    data: payload,
   });
 
   return updateCustomer;
+};
+
+const deleteCustomerById = async (customerId: string) => {
+  await prisma.customer.findUniqueOrThrow({
+    where: {
+      customerId,
+    },
+  });
+  const deletedUser = await prisma.customer.delete({
+    where: {
+      customerId,
+    },
+  });
+
+  return deletedUser;
 };
 
 export const customerServices = {
   createCustomerIntoDB,
   getAllCustomersIntoDB,
   getCustomerByIdIntoDB,
-  updateCustomerById
+  updateCustomerById,
+  deleteCustomerById,
 };
