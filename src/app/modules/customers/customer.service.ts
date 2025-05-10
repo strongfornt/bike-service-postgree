@@ -1,8 +1,9 @@
+import { StatusCodes } from "http-status-codes";
+import { CustomError } from "../../errors/custome.error";
 import { prisma } from "../../shared/prisma";
 import { ICustomer, TCustomerUpdate } from "./customer.interface";
 
 const createCustomerIntoDB = async (payload: ICustomer) => {
-  console.log(payload);
   const customer = await prisma.customer.create({
     data: payload,
   });
@@ -12,6 +13,9 @@ const createCustomerIntoDB = async (payload: ICustomer) => {
 
 const getAllCustomersIntoDB = async () => {
   const customers = await prisma.customer.findMany();
+      if (!customers) {
+          throw new CustomError(StatusCodes.NOT_FOUND, 'Requested resource was not found')
+      }
   return customers;
 };
 

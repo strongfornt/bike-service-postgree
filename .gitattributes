@@ -1,1 +1,2 @@
+src/**/*.js linguist-generated
 *.ts linguist-language=TypeScript
