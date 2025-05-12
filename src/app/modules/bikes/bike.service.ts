@@ -12,25 +12,28 @@ const createBikeIntoDB = async (payload: IBike) => {
 };
 
 const getAllBikeIntoDB = async () => {
-    const bikes = await prisma.bike.findMany()
-    if (!bikes) {
-        throw new CustomError(StatusCodes.NOT_FOUND, 'Requested resource was not found')
-    }
+  const bikes = await prisma.bike.findMany();
+  if (bikes?.length == 0) {
+    throw new CustomError(
+      StatusCodes.NOT_FOUND,
+      "Requested resource was not found"
+    );
+  }
 
-    return bikes;
-}
-const getBikeIntoDB = async (bikeId:string) => {
-    const bike = await prisma.bike.findUniqueOrThrow({
-        where:{
-            bikeId
-        }
-    })
-   
-    return bike;
-}
+  return bikes;
+};
+const getBikeIntoDB = async (bikeId: string) => {
+  const bike = await prisma.bike.findUniqueOrThrow({
+    where: {
+      bikeId,
+    },
+  });
+
+  return bike;
+};
 
 export const bikeServices = {
   createBikeIntoDB,
   getAllBikeIntoDB,
-  getBikeIntoDB
+  getBikeIntoDB,
 };

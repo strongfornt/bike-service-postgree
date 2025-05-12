@@ -21,8 +21,8 @@ const createCustomerIntoDB = (payload) => __awaiter(void 0, void 0, void 0, func
 });
 const getAllCustomersIntoDB = () => __awaiter(void 0, void 0, void 0, function* () {
     const customers = yield prisma_1.prisma.customer.findMany();
-    if (!customers) {
-        throw new custome_error_1.CustomError(http_status_codes_1.StatusCodes.NOT_FOUND, 'Requested resource was not found');
+    if ((customers === null || customers === void 0 ? void 0 : customers.length) == 0) {
+        throw new custome_error_1.CustomError(http_status_codes_1.StatusCodes.NOT_FOUND, "Requested resource was not found");
     }
     return customers;
 });

@@ -21,21 +21,21 @@ const createBikeIntoDB = (payload) => __awaiter(void 0, void 0, void 0, function
 });
 const getAllBikeIntoDB = () => __awaiter(void 0, void 0, void 0, function* () {
     const bikes = yield prisma_1.prisma.bike.findMany();
-    if (!bikes) {
-        throw new custome_error_1.CustomError(http_status_codes_1.StatusCodes.NOT_FOUND, 'Requested resource was not found');
+    if ((bikes === null || bikes === void 0 ? void 0 : bikes.length) == 0) {
+        throw new custome_error_1.CustomError(http_status_codes_1.StatusCodes.NOT_FOUND, "Requested resource was not found");
     }
     return bikes;
 });
 const getBikeIntoDB = (bikeId) => __awaiter(void 0, void 0, void 0, function* () {
     const bike = yield prisma_1.prisma.bike.findUniqueOrThrow({
         where: {
-            bikeId
-        }
+            bikeId,
+        },
     });
     return bike;
 });
 exports.bikeServices = {
     createBikeIntoDB,
     getAllBikeIntoDB,
-    getBikeIntoDB
+    getBikeIntoDB,
 };

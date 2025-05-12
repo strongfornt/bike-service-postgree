@@ -12,7 +12,7 @@ const createServiceIntoDB = async (payload: IServicePayload) => {
 
 const getAllServicesRecordIntoDB = async () => {
   const result = await prisma.serviceRecord.findMany();
-  if (!result) {
+  if (result?.length == 0) {
     throw new CustomError(
       StatusCodes.NOT_FOUND,
       "Requested resource was not found"

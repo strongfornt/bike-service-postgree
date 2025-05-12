@@ -12,10 +12,14 @@ const createCustomerIntoDB = async (payload: ICustomer) => {
 };
 
 const getAllCustomersIntoDB = async () => {
-  const customers = await prisma.customer.findMany();
-      if (!customers) {
-          throw new CustomError(StatusCodes.NOT_FOUND, 'Requested resource was not found')
-      }
+  const customers = await prisma.customer.findMany();  
+  if (customers?.length == 0) {
+    
+    throw new CustomError(
+      StatusCodes.NOT_FOUND,
+      "Requested resource was not found"
+    );
+  }
   return customers;
 };
 

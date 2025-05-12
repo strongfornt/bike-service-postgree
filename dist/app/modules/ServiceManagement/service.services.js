@@ -21,7 +21,7 @@ const createServiceIntoDB = (payload) => __awaiter(void 0, void 0, void 0, funct
 });
 const getAllServicesRecordIntoDB = () => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield prisma_1.prisma.serviceRecord.findMany();
-    if (!result) {
+    if ((result === null || result === void 0 ? void 0 : result.length) == 0) {
         throw new custome_error_1.CustomError(http_status_codes_1.StatusCodes.NOT_FOUND, "Requested resource was not found");
     }
     return result;
